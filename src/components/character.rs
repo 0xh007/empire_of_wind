@@ -109,19 +109,20 @@ pub struct CharacterControllerBundle {
     rigid_body: RigidBody,
     collider: Collider,
     ground_caster: ShapeCaster,
-    gravity: ControllerGravity,
+    locked_axes: LockedAxes,
+    // gravity: ControllerGravity,
     movement: MovementBundle,
 }
 
 impl CharacterControllerBundle {
-    pub fn new(collider: Collider, gravity: Vector) -> Self {
+    pub fn new(collider: Collider) -> Self {
         // Create shape caster as a slightly smaller version of collider
         let mut caster_shape = collider.clone();
         caster_shape.set_scale(Vector::ONE * 0.99, 10);
 
         Self {
             character_controller: CharacterController,
-            rigid_body: RigidBody::Kinematic,
+            rigid_body: RigidBody::Dynamic,
             collider,
             ground_caster: ShapeCaster::new(
                 caster_shape,
@@ -130,7 +131,7 @@ impl CharacterControllerBundle {
                 Vector::NEG_Y,
             )
             .with_max_time_of_impact(0.2),
-            gravity: ControllerGravity(gravity),
+            locked_axes: LockedAxes::ROTATION_LOCKED,
             movement: MovementBundle::default(),
         }
     }

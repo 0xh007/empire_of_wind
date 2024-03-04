@@ -10,13 +10,13 @@ impl Plugin for MovementPlugin {
         app.add_event::<MovementAction>()
             .add_systems(Update, update_grounded)
             .add_systems(Update, apply_deferred)
-            .add_systems(Update, apply_gravity)
+            // .add_systems(Update, apply_gravity)
             .add_systems(Update, movement)
-            .add_systems(Update, apply_movement_damping)
-            .add_systems(
-                SubstepSchedule,
-                kinematic_controller_collisions.in_set(SubstepSet::SolveUserConstraints),
-            );
+            .add_systems(Update, apply_movement_damping);
+        // .add_systems(
+        //     SubstepSchedule,
+        //     kinematic_controller_collisions.in_set(SubstepSet::SolveUserConstraints),
+        // );
     }
 }
 

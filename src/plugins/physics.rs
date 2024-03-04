@@ -79,10 +79,12 @@ pub fn read_colliders(
         let collider =
             Collider::trimesh_from_mesh(mesh).context("Failed to create collider from mesh")?;
 
+        let friction = Friction::new(0.6).with_combine_rule(CoefficientCombine::Average);
+
         // Insert the common components, including making the collider invisible
         commands
             .entity(entity)
-            .insert((collider, RigidBody::Static, Visibility::Hidden));
+            .insert((collider, RigidBody::Static, Visibility::Hidden, friction));
 
         // If the NavMeshMarker is present, also add NavMeshAffector in a separate step
         if nav_mesh_marker_opt.is_some() {

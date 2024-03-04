@@ -29,7 +29,17 @@ fn spawn_player(
             transform: Transform::from_xyz(-14.0, 13.5, -0.14),
             ..default()
         },
-        CharacterControllerBundle::new(Collider::capsule(1.0, 0.4), Vector::NEG_Y * 9.81 * 2.0)
-            .with_movement(90.0, 0.92, 7.0, (30.0 as Scalar).to_radians()),
+        CharacterControllerBundle::new(Collider::capsule(1.0, 0.4)).with_movement(
+            30.0,
+            0.92,
+            7.0,
+            (30.0 as Scalar).to_radians(),
+        ),
+        Friction::new(0.6)
+            .with_dynamic_coefficient(0.5)
+            .with_static_coefficient(0.6)
+            .with_combine_rule(CoefficientCombine::Average),
+        Restitution::ZERO.with_combine_rule(CoefficientCombine::Min),
+        GravityScale(2.0),
     ));
 }
