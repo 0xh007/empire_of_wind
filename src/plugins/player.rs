@@ -35,6 +35,8 @@ fn spawn_player(
             7.0,
             (30.0 as Scalar).to_radians(),
         ),
+        ColliderDensity(0.0),
+        Mass(5.0),
         Friction::new(0.6)
             .with_dynamic_coefficient(0.5)
             .with_static_coefficient(0.6)
